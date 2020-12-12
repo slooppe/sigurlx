@@ -9,7 +9,7 @@ sigurlx is a helper utility written in Go. It takes urls from stdin then:
     * style {css}
     * js {js|json|xml|csv}
     * doc {pdf|doc|docx|xlsx}
-    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|tff}
+    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot}
 * checks for risky parameter names and the risks commonly associated with them
 * send HTTP request
 
@@ -54,32 +54,30 @@ $ sigurlx -h
  ___(_) __ _ _   _ _ __| |_  __
 / __| |/ _` | | | | '__| \ \/ /
 \__ \ | (_| | |_| | |  | |>  < 
-|___/_|\__, |\__,_|_|  |_/_/\_\ v1.0.0
+|___/_|\__, |\__,_|_|  |_/_/\_\ v1.1.0
        |___/
 
-Usage:
+USAGE:
   sigurlx [OPTIONS]
 
-TASK OPTIONS:
-   -cat                       categorize urls
-   -param-scan                scan url parameters
-   -request                   send HTTP request
+FEATURES:
+  -cat               categorize (endpoints, js, style, doc & media)
+  -param-scan        scan url parameters
+  -request           send HTTP request
 
 GENERAL OPTIONS:
-   -t                         number of concurrent threads. (default: 50)
-   -nc                        no color mode
-   -s                         silent mode
-   -v                         verbose mode
+  -t                 number of concurrent threads. (default: 50)
+  -nc                no color mode
+  -s                 silent mode
+  -v                 verbose mode
 
 REQUEST OPTIONS (used with -request):
-   -UA                        HTTP user agent
+  -UA                HTTP user agent
 
 OUTPUT OPTIONS:
-   -o                         output file
+  -o                 JSON output file
 
 ```
-
-**NOTE:** The output is in JSON format. Use `jq` to process the results.
 
 ## Credits
 

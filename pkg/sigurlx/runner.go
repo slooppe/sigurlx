@@ -52,7 +52,7 @@ func New(options *Options) (runner Runner, err error) {
 		return runner, err
 	}
 
-	runner.Categories.MEDIA, err = newRegex(`(?m).*?\.(jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|tff)(\?.*?|)$`)
+	runner.Categories.MEDIA, err = newRegex(`(?m).*?\.(jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot)(\?.*?|)$`)
 	if err != nil {
 		return runner, err
 	}

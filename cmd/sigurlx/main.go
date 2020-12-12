@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"strings"
 	"sync"
 
 	"github.com/drsigned/gos"
@@ -35,7 +36,7 @@ func banner() {
  ___(_) __ _ _   _ _ __| |_  __
 / __| |/ _`+"`"+` | | | | '__| \ \/ /
 \__ \ | (_| | |_| | |  | |>  < 
-|___/_|\__, |\__,_|_|  |_/_/\_\ v1.0.0
+|___/_|\__, |\__,_|_|  |_/_/\_\ v1.1.0
        |___/
 `).Bold())
 }
@@ -61,25 +62,25 @@ func init() {
 	flag.Usage = func() {
 		banner()
 
-		h := "Usage:\n"
+		h := "USAGE:\n"
 		h += "  sigurlx [OPTIONS]\n\n"
 
-		h += "TASK OPTIONS:\n"
-		h += "   -cat                       categorize urls\n"
-		h += "   -param-scan                scan url parameters\n"
-		h += "   -request                   send HTTP request\n\n"
+		h += "FEATURES:\n"
+		h += "  -cat               categorize (endpoints, js, style, doc & media)\n"
+		h += "  -param-scan        scan url parameters\n"
+		h += "  -request           send HTTP request\n\n"
 
 		h += "GENERAL OPTIONS:\n"
-		h += "   -t                         number of concurrent threads. (default: 50)\n"
-		h += "   -nc                        no color mode\n"
-		h += "   -s                         silent mode\n"
-		h += "   -v                         verbose mode\n\n"
+		h += "  -t                 number of concurrent threads. (default: 50)\n"
+		h += "  -nc                no color mode\n"
+		h += "  -s                 silent mode\n"
+		h += "  -v                 verbose mode\n\n"
 
 		h += "REQUEST OPTIONS (used with -request):\n"
-		h += "   -UA                        HTTP user agent\n\n"
+		h += "  -UA                HTTP user agent\n\n"
 
 		h += "OUTPUT OPTIONS:\n"
-		h += "   -o                         output file\n\n"
+		h += "  -o                 JSON output file\n\n"
 
 		fmt.Fprintf(os.Stderr, h)
 	}
@@ -165,7 +166,7 @@ func main() {
 
 func saveResults(outputPath string, output []sigurlx.Results) error {
 	if _, err := os.Stat(outputPath); os.IsNotExist(err) {
-		directory, _ := path.Split(outputPath)
+		directory, filename := path.Split(outputPath)
 
 		if _, err := os.Stat(directory); os.IsNotExist(err) {
 			if directory != "" {
@@ -175,6 +176,10 @@ func saveResults(outputPath string, output []sigurlx.Results) error {
 				}
 			}
 		}
+
+		if strings.ToLower(path.Ext(filename)) != ".json" {
+			outputPath = outputPath + ".json"
+		}
 	}
 
 	outputJSON, err := json.MarshalIndent(output, "", "\t")
@@ -182,7 +187,7 @@ func saveResults(outputPath string, output []sigurlx.Results) error {
 		return err
 	}
 
-	outputFile, err := os.Create(co.output)
+	outputFile, err := os.Create(outputPath)
 	if err != nil {
 		return err
 	}
