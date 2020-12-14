@@ -9,7 +9,7 @@ sigurlx is a helper utility written in Go. It takes urls from stdin then:
     * style {css}
     * js {js|json|xml|csv}
     * doc {pdf|doc|docx|xlsx}
-    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot}
+    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot|tif|tiff}
 * checks for risky parameter names and the risks commonly associated with them
 * send HTTP request
 
