@@ -66,13 +66,17 @@ FEATURES:
   -request           send HTTP request
 
 GENERAL OPTIONS:
-  -t                 number of concurrent threads. (default: 50)
+  -c                 concurrency level (default: 50)
+  -delay             delay between requests (ms) (default: 100)
   -nc                no color mode
   -s                 silent mode
   -v                 verbose mode
 
 REQUEST OPTIONS (used with -request):
+  -t                 HTTP request timeout (s) (default: 10)
+  -tls               enable tls verification (default: false)
   -UA                HTTP user agent
+  -x                 HTTP Proxy URL
 
 OUTPUT OPTIONS:
   -o                 JSON output file

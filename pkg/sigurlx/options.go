@@ -10,12 +10,19 @@ import (
 
 // Options is a
 type Options struct {
-	All        bool
+	// FEATURES
+	All bool
+
 	Categorize bool
 	ScanParam  bool
 	ParamsPath string
 	Request    bool
-	UserAgent  string
+
+	// REQUEST OPTIONS
+	VerifyTLS bool
+	Proxy     string
+	UserAgent string
+	Timeout   int
 }
 
 // ParseOptions is a
