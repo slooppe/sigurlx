@@ -10,6 +10,7 @@ import (
 	"path"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/drsigned/gos"
 	"github.com/drsigned/sigurlx/pkg/sigurlx"
@@ -17,11 +18,12 @@ import (
 )
 
 type options struct {
-	threads int
-	output  string
-	silent  bool
-	noColor bool
-	verbose bool
+	delay       int
+	concurrency int
+	output      string
+	silent      bool
+	noColor     bool
+	verbose     bool
 }
 
 var (
@@ -43,9 +45,10 @@ func banner() {
 
 func init() {
 	// general options
+	flag.IntVar(&co.concurrency, "c", 50, "")
+	flag.IntVar(&co.delay, "delay", 100, "")
 	flag.BoolVar(&co.noColor, "nc", false, "")
 	flag.BoolVar(&co.silent, "s", false, "")
-	flag.IntVar(&co.threads, "t", 50, "")
 	flag.BoolVar(&co.verbose, "v", false, "")
 
 	// task options
@@ -54,7 +57,10 @@ func init() {
 	flag.BoolVar(&so.Request, "request", false, "")
 
 	// Http options
+	flag.IntVar(&so.Timeout, "t", 10, "")
+	flag.BoolVar(&so.VerifyTLS, "tls", false, "")
 	flag.StringVar(&so.UserAgent, "UA", "", "")
+	flag.StringVar(&so.Proxy, "x", "", "")
 
 	// OUTPUT
 	flag.StringVar(&co.output, "o", "", "")
@@ -68,18 +74,22 @@ func init() {
 		h += "FEATURES:\n"
 		h += "  -cat               categorize (endpoints, js, style, doc & media)\n"
 		h += "  -param-scan        scan url parameters\n"
-		h += "  -request           send HTTP request\n\n"
+		h += "  -request           send HTTP request\n"
 
-		h += "GENERAL OPTIONS:\n"
-		h += "  -t                 number of concurrent threads. (default: 50)\n"
+		h += "\nGENERAL OPTIONS:\n"
+		h += "  -c                 concurrency level (default: 50)\n"
+		h += "  -delay             delay between requests (ms) (default: 100)\n"
 		h += "  -nc                no color mode\n"
 		h += "  -s                 silent mode\n"
-		h += "  -v                 verbose mode\n\n"
+		h += "  -v                 verbose mode\n"
 
-		h += "REQUEST OPTIONS (used with -request):\n"
-		h += "  -UA                HTTP user agent\n\n"
+		h += "\nREQUEST OPTIONS (used with -request):\n"
+		h += "  -t                 HTTP request timeout (s) (default: 10)\n"
+		h += "  -tls               enable tls verification (default: false)\n"
+		h += "  -UA                HTTP user agent\n"
+		h += "  -x                 HTTP Proxy URL\n"
 
-		h += "OUTPUT OPTIONS:\n"
+		h += "\nOUTPUT OPTIONS:\n"
 		h += "  -o                 JSON output file\n\n"
 
 		fmt.Fprintf(os.Stderr, h)
@@ -104,7 +114,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	URLs := make(chan string, co.threads)
+	URLs := make(chan string, co.concurrency)
 
 	go func() {
 		defer close(URLs)
@@ -121,8 +131,11 @@ func main() {
 	mutex := &sync.Mutex{}
 	wg := &sync.WaitGroup{}
 
-	for i := 0; i < co.threads; i++ {
+	delay := time.Duration(co.delay) * time.Millisecond
+
+	for i := 0; i < co.concurrency; i++ {
 		wg.Add(1)
+		time.Sleep(delay)
 
 		go func() {
 			defer wg.Done()
@@ -140,7 +153,7 @@ func main() {
 				results, err := runner.Process(URL)
 				if err != nil {
 					if co.verbose {
-						fmt.Println(err)
+						fmt.Fprintf(os.Stderr, err.Error()+"\n")
 					}
 
 					continue

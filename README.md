@@ -9,7 +9,7 @@ sigurlx is a helper utility written in Go. It takes urls from stdin then:
     * style {css}
     * js {js|json|xml|csv}
     * doc {pdf|doc|docx|xlsx}
-    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot}
+    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot|tif|tiff}
 * checks for risky parameter names and the risks commonly associated with them
 * send HTTP request
 
@@ -66,13 +66,17 @@ FEATURES:
   -request           send HTTP request
 
 GENERAL OPTIONS:
-  -t                 number of concurrent threads. (default: 50)
+  -c                 concurrency level (default: 50)
+  -delay             delay between requests (ms) (default: 100)
   -nc                no color mode
   -s                 silent mode
   -v                 verbose mode
 
 REQUEST OPTIONS (used with -request):
+  -t                 HTTP request timeout (s) (default: 10)
+  -tls               enable tls verification (default: false)
   -UA                HTTP user agent
+  -x                 HTTP Proxy URL
 
 OUTPUT OPTIONS:
   -o                 JSON output file
