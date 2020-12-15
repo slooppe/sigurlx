@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/drsigned/sigurlx/pkg/categorize"
@@ -137,7 +138,7 @@ func (runner *Runner) Process(URL string) (results Results, err error) {
 		defer res.Body.Close()
 
 		results.StatusCode = res.StatusCode
-		results.ContentType = res.Header.Get("Content-Type")
+		results.ContentType = strings.Split(res.Header.Get("Content-Type"), ";")[0]
 		results.ContentLength = res.ContentLength
 	}
 
