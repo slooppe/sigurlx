@@ -2,19 +2,11 @@
 
 ![made with go](https://img.shields.io/badge/made%20with-Go-0040ff.svg) ![maintenance](https://img.shields.io/badge/maintained%3F-yes-0040ff.svg) [![open issues](https://img.shields.io/github/issues-raw/drsigned/sigurlx.svg?style=flat&color=0040ff)](https://github.com/drsigned/sigurlx/issues?q=is:issue+is:open) [![closed issues](https://img.shields.io/github/issues-closed-raw/drsigned/sigurlx.svg?style=flat&color=0040ff)](https://github.com/drsigned/sigurlx/issues?q=is:issue+is:closed) [![license](https://img.shields.io/badge/license-MIT-gray.svg?colorB=0040FF)](https://github.com/drsigned/sigurlx/blob/master/LICENSE) [![twitter](https://img.shields.io/badge/twitter-@drsigned-0040ff.svg)](https://twitter.com/drsigned)
 
-sigurlx is a helper utility written in Go. It takes urls from stdin then:
-
-* categorize them into:
-    * endpoint
-    * style {css}
-    * js {js|json|xml|csv}
-    * doc {pdf|doc|docx|xlsx}
-    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot|tif|tiff}
-* checks for risky parameter names and the risks commonly associated with them
-* send HTTP request
+sigurlx is a fast and multi-purpose HTTP toolkit allow to run multiple probers on URLs.
 
 ## Resources
 
+* [Features](#features)
 * [Usage](#usage)
 * [Installation](#installation)
     * [From Binary](#from-binary)
@@ -23,6 +15,17 @@ sigurlx is a helper utility written in Go. It takes urls from stdin then:
 * [Credits](#credits)
 * [Contribution](#contribution)
 
+
+## Features
+
+* Categorize URLs into:
+    * endpoint
+    * style {css}
+    * js {js|json|xml|csv}
+    * doc {pdf|doc|docx|xlsx}
+    * media {jpg|jpeg|png|ico|svg|gif|webp|mp3|mp4|woff|woff2|ttf|eot|tif|tiff}
+* Some HTTP parameter names are more commonly associated with one functionality than the others, sigurlx finds such parameter names and the risks commonly associated with them.
+* send HTTP request
 ## Usage
 
 To display help message for sigurlx use the `-h` flag:
