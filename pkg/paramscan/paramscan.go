@@ -1,9 +1,8 @@
 package paramscan
 
 import (
+	"net/url"
 	"strings"
-
-	"github.com/drsigned/gos"
 )
 
 // Params is a
@@ -17,7 +16,7 @@ func Run(URL string, params []Params) ([]string, []Params, error) {
 	paramsList := make([]string, 0)
 	riskyParams := make([]Params, 0)
 
-	parsedURL, err := gos.ParseURL(URL)
+	parsedURL, err := url.Parse(URL)
 	if err != nil {
 		return paramsList, riskyParams, err
 	}
@@ -30,7 +29,9 @@ func Run(URL string, params []Params) ([]string, []Params, error) {
 		paramsList = append(paramsList, parameter)
 
 		for param := range params {
-			if parameter == params[param].Param {
+			parameter = strings.ToLower(parameter)
+
+			if params[param].Param == parameter {
 				riskyParams = append(riskyParams, params[param])
 				break
 			}

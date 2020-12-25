@@ -47,7 +47,7 @@ func init() {
 	// general options
 	flag.IntVar(&co.concurrency, "c", 50, "")
 	flag.IntVar(&co.delay, "delay", 100, "")
-	flag.BoolVar(&co.noColor, "nc", false, "")
+	flag.BoolVar(&co.noColor, "nC", false, "")
 	flag.BoolVar(&co.silent, "s", false, "")
 	flag.BoolVar(&co.verbose, "v", false, "")
 
@@ -57,13 +57,13 @@ func init() {
 	flag.BoolVar(&so.Request, "request", false, "")
 
 	// Http options
-	flag.IntVar(&so.Timeout, "t", 10, "")
+	flag.IntVar(&so.Timeout, "timeout", 10, "")
 	flag.BoolVar(&so.VerifyTLS, "tls", false, "")
 	flag.StringVar(&so.UserAgent, "UA", "", "")
 	flag.StringVar(&so.Proxy, "x", "", "")
 
 	// OUTPUT
-	flag.StringVar(&co.output, "o", "", "")
+	flag.StringVar(&co.output, "oJ", "", "")
 
 	flag.Usage = func() {
 		banner()
@@ -79,18 +79,18 @@ func init() {
 		h += "\nGENERAL OPTIONS:\n"
 		h += "  -c                 concurrency level (default: 50)\n"
 		h += "  -delay             delay between requests (ms) (default: 100)\n"
-		h += "  -nc                no color mode\n"
+		h += "  -nC                no color mode\n"
 		h += "  -s                 silent mode\n"
 		h += "  -v                 verbose mode\n"
 
 		h += "\nREQUEST OPTIONS (used with -request):\n"
-		h += "  -t                 HTTP request timeout (s) (default: 10)\n"
+		h += "  -timeout           HTTP request timeout (s) (default: 10)\n"
 		h += "  -tls               enable tls verification (default: false)\n"
 		h += "  -UA                HTTP user agent\n"
 		h += "  -x                 HTTP Proxy URL\n"
 
 		h += "\nOUTPUT OPTIONS:\n"
-		h += "  -o                 JSON output file\n\n"
+		h += "  -oJ                JSON output file\n\n"
 
 		fmt.Fprintf(os.Stderr, h)
 	}
