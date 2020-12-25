@@ -15,13 +15,52 @@ sigurlx is a helper utility written in Go. It takes urls from stdin then:
 
 ## Resources
 
+* [Usage](#usage)
 * [Installation](#installation)
     * [From Binary](#from-binary)
     * [From source](#from-source)
     * [From github](#from-github)
-* [Usage](#usage)
 * [Credits](#credits)
 * [Contribution](#contribution)
+
+## Usage
+
+To display help message for sigurlx use the `-h` flag:
+
+```
+$ sigurlx -h
+
+     _                  _      
+ ___(_) __ _ _   _ _ __| |_  __
+/ __| |/ _` | | | | '__| \ \/ /
+\__ \ | (_| | |_| | |  | |>  < 
+|___/_|\__, |\__,_|_|  |_/_/\_\ v1.3.0
+       |___/
+
+USAGE:
+  sigurlx [OPTIONS]
+
+FEATURES:
+  -cat               categorize (endpoints, js, style, doc & media)
+  -param-scan        scan url parameters
+  -request           send HTTP request
+
+GENERAL OPTIONS:
+  -c                 concurrency level (default: 50)
+  -delay             delay between requests (ms) (default: 100)
+  -nC                no color mode
+  -s                 silent mode
+  -v                 verbose mode
+
+REQUEST OPTIONS (used with -request):
+  -timeout           HTTP request timeout (s) (default: 10)
+  -tls               enable tls verification (default: false)
+  -UA                HTTP user agent
+  -x                 HTTP Proxy URL
+
+OUTPUT OPTIONS:
+  -oJ                JSON output file
+```
 
 ## Installation
 
@@ -41,46 +80,6 @@ $ GO111MODULE=on go get -u -v github.com/drsigned/sigurlx/cmd/sigurlx
 
 ```bash
 $ git clone https://github.com/drsigned/sigurlx.git; cd sigurlx/cmd/sigurlx/; go build; mv sigurlx /usr/local/bin/; sigurlx -h
-```
-
-## Usage
-
-To display help message for sigurlx use the `-h` flag:
-
-```
-$ sigurlx -h
-
-     _                  _      
- ___(_) __ _ _   _ _ __| |_  __
-/ __| |/ _` | | | | '__| \ \/ /
-\__ \ | (_| | |_| | |  | |>  < 
-|___/_|\__, |\__,_|_|  |_/_/\_\ v1.2.0
-       |___/
-
-USAGE:
-  sigurlx [OPTIONS]
-
-FEATURES:
-  -cat               categorize (endpoints, js, style, doc & media)
-  -param-scan        scan url parameters
-  -request           send HTTP request
-
-GENERAL OPTIONS:
-  -c                 concurrency level (default: 50)
-  -delay             delay between requests (ms) (default: 100)
-  -nc                no color mode
-  -s                 silent mode
-  -v                 verbose mode
-
-REQUEST OPTIONS (used with -request):
-  -t                 HTTP request timeout (s) (default: 10)
-  -tls               enable tls verification (default: false)
-  -UA                HTTP user agent
-  -x                 HTTP Proxy URL
-
-OUTPUT OPTIONS:
-  -o                 JSON output file
-
 ```
 
 ## Credits
